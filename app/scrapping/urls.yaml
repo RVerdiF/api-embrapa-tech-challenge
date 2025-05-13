@@ -1,0 +1,58 @@
+Producao:
+  baseurl: 'http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_02'
+  downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/Producao.csv'
+
+Comercializacao:
+  baseurl: 'http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04'
+  downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/Comercio.csv'
+
+Processamento:
+  baseurl: 'http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_03'
+  subcategoria: 
+    viníferas:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_01&opcao=opt_03'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ProcessaViniferas.csv'
+    americanas:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_02&opcao=opt_03'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ProcessaAmericanas.csv'
+    mesa:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_03&opcao=opt_03'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ProcessaMesa.csv'
+    outros:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_04&opcao=opt_03'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ProcessaSemclass.csv'
+
+Exportacao:
+  baseurl: 'http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06'
+  subcategoria: 
+    mesa:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_01&opcao=opt_06'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ExpVinho.csv'
+    espumantes:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_02&opcao=opt_06'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ExpEspumantes.csv'
+    frescas:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_03&opcao=opt_06'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ExpUva.csv'
+    sucos:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_04&opcao=opt_06'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ExpSuco.csv'
+
+Importacao:
+  baseurl: 'http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04'
+  subcategoria: 
+    mesa:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_01&opcao=opt_05'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ImpVinhos.csv'
+    espumantes:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_02&opcao=opt_05'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ImpEspumantes.csv'
+    frescas:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_03&opcao=opt_05'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ImpFrescas.csv'
+    passas:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_04&opcao=opt_05'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ImpPassas.csv'
+    sucos:
+      url: 'http://vitibrasil.cnpuv.embrapa.br/index.php?subopcao=subopt_05&opcao=opt_05'
+      downloadurl: 'http://vitibrasil.cnpuv.embrapa.br/download/ImpSuco.csv'

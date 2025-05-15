@@ -84,7 +84,7 @@ class Sucos:
                 .get('subcategoria', {})\
                 .get('sucos', {})\
                 .get('downloadurl')
-            df_pivoted = getdata('Sucos').main(url,Mesamodel)
+            df_pivoted = getdata('Sucos').main(url,Sucosmodel)
             if not df_pivoted.empty:
                 return df_pivoted
             else:
@@ -126,10 +126,10 @@ class Main:
         filtered_df = df.copy()
         
         if pais is not None:
-            filtered_df = filtered_df[filtered_df['país'] == pais.upper().replace('_',' ')]
+            filtered_df = filtered_df[filtered_df['pais'].str.upper() == pais.upper().replace('_',' ')]
             
         if produto is not None:
-            filtered_df = filtered_df[filtered_df['produto'] == produto.upper().replace('_',' ')]
+            filtered_df = filtered_df[filtered_df['produto'].str.upper() == produto.upper().replace('_',' ')]
             
         if ano is not None:
             filtered_df = filtered_df[filtered_df['ano'] == ano]

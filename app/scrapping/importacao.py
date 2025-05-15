@@ -2,26 +2,48 @@ import requests
 import pandas as pd
 from typing import List, Dict, Optional
 import yaml
-from app.models.processamento import (
-    Viniferas as Viniferasmodel,
-    Americanas as Americanasmodel,
+from app.models.importacao import (
     Mesa as Mesamodel,
-    Outros as Outrosmodel,
+    Espumantes as Espumantesmodel,
+    Frescas as Frescasmodel,
+    Sucos as Sucosmodel,
+    Passas as Passasmodel,
 )
-from app.utils._get_data import data_extract_1 as getdata
+from app.utils._get_data import data_extract_2 as getdata
 
-class Viniferas:
+class Mesa:
+    def __init__(self):
+        pass
+        
+    def main(self):
+        try:
+            url = yaml.safe_load(open('app/scrapping/urls.yaml',encoding='utf-8'))\
+                .get('Importacao', {})\
+                .get('subcategoria', {})\
+                .get('mesa', {})\
+                .get('downloadurl')
+            df_pivoted = getdata('Vinho de mesa').main(url,Mesamodel)
+            if not df_pivoted.empty:
+                return df_pivoted
+            else:
+                return pd.DataFrame()
+        except requests.exceptions.RequestException as e:
+            raise e
+        except Exception as e:
+            raise e
+        
+class Espumantes:
     def __init__(self):
         pass
 
     def main(self):
         try:
             url = yaml.safe_load(open('app/scrapping/urls.yaml',encoding='utf-8'))\
-                .get('Processamento', {})\
+                .get('Importacao', {})\
                 .get('subcategoria', {})\
-                .get('viníferas', {})\
+                .get('espumantes', {})\
                 .get('downloadurl')
-            df_pivoted = getdata().main(url,Viniferasmodel)
+            df_pivoted = getdata('Espumantes').main(url,Espumantesmodel)
             if not df_pivoted.empty:
                 return df_pivoted
             else:
@@ -30,19 +52,19 @@ class Viniferas:
             raise e
         except Exception as e:
             raise e
-
-class Americanas:
+        
+class Frescas:
     def __init__(self):
         pass
 
     def main(self):
         try:
-            url = yaml.safe_load(open('app/scrapping/urls.yaml', encoding='utf-8'))\
-                .get('Processamento', {})\
+            url = yaml.safe_load(open('app/scrapping/urls.yaml',encoding='utf-8'))\
+                .get('Importacao', {})\
                 .get('subcategoria', {})\
-                .get('americanas', {})\
+                .get('frescas', {})\
                 .get('downloadurl')
-            df_pivoted = getdata().main(url,Americanasmodel)
+            df_pivoted = getdata('Uvas Frescas').main(url,Frescasmodel)
             if not df_pivoted.empty:
                 return df_pivoted
             else:
@@ -51,19 +73,19 @@ class Americanas:
             raise e
         except Exception as e:
             raise e
-
-class Mesa:
+        
+class Sucos:
     def __init__(self):
         pass
 
     def main(self):
         try:
-            url = yaml.safe_load(open('app/scrapping/urls.yaml', encoding='utf-8'))\
-                .get('Processamento', {})\
+            url = yaml.safe_load(open('app/scrapping/urls.yaml',encoding='utf-8'))\
+                .get('Importacao', {})\
                 .get('subcategoria', {})\
-                .get('mesa', {})\
+                .get('sucos', {})\
                 .get('downloadurl')
-            df_pivoted = getdata().main(url,Mesamodel)
+            df_pivoted = getdata('Sucos').main(url,Sucosmodel)
             if not df_pivoted.empty:
                 return df_pivoted
             else:
@@ -72,19 +94,19 @@ class Mesa:
             raise e
         except Exception as e:
             raise e
-
-class Outros:
+        
+class Passas:
     def __init__(self):
         pass
 
     def main(self):
         try:
-            url = yaml.safe_load(open('app/scrapping/urls.yaml', encoding='utf-8'))\
-                .get('Processamento', {})\
+            url = yaml.safe_load(open('app/scrapping/urls.yaml',encoding='utf-8'))\
+                .get('Importacao', {})\
                 .get('subcategoria', {})\
-                .get('outros', {})\
+                .get('passas', {})\
                 .get('downloadurl')
-            df_pivoted = getdata().main(url,Outrosmodel)
+            df_pivoted = getdata('Sucos').main(url,Sucosmodel)
             if not df_pivoted.empty:
                 return df_pivoted
             else:
@@ -100,12 +122,13 @@ class Main:
 
     def main(self) -> pd.DataFrame:
         try:
-            viniferas_df = Viniferas().main()
-            americanas_df = Americanas().main()
+            espumantes_df = Espumantes().main()
+            frescas_df = Frescas().main()
             mesa_df = Mesa().main()
-            outros_df = Outros().main()
+            sucos_df = Sucos().main()
+            passas_df = Passas().main()
 
-            combined_df = pd.concat([viniferas_df, americanas_df, mesa_df, outros_df], ignore_index=True)
+            combined_df = pd.concat([espumantes_df, frescas_df, mesa_df, sucos_df, passas_df], ignore_index=True)
             return combined_df
         except requests.exceptions.RequestException as e:
             raise e
@@ -113,7 +136,7 @@ class Main:
             raise e
         
     def filter(
-        categoria: Optional[str] = None,
+        pais: Optional[str] = None,
         produto: Optional[str] = None,
         ano: Optional[int] = None,
         quantidade_min: Optional[int] = None,
@@ -125,8 +148,8 @@ class Main:
             
         filtered_df = df.copy()
         
-        if categoria is not None:
-            filtered_df = filtered_df[filtered_df['categoria'].str.upper() == categoria.upper().replace('_',' ')]
+        if pais is not None:
+            filtered_df = filtered_df[filtered_df['pais'].str.upper() == pais.upper().replace('_',' ')]
             
         if produto is not None:
             filtered_df = filtered_df[filtered_df['produto'].str.upper() == produto.upper().replace('_',' ')]
@@ -141,30 +164,35 @@ class Main:
             filtered_df = filtered_df[filtered_df['quantidade'] <= quantidade_max]
             
         return filtered_df
-
+    
 if __name__ == '__main__':
     try:
-        Main().main()
-        print('Sucesso função Main')
+        Espumantes().main()
+        print('Sucesso função Espumantes')
     except Exception as e:
-        print(f"Error in Viniferas: {e}")
+        print(f"Error in Espumantes: {e}")
     try:
-        Viniferas().main()
-        print('Sucesso função Viniferas')
+        Frescas().main()
+        print('Sucesso função Frescas')
     except Exception as e:
-        print(f"Error in Viniferas: {e}")
-    try:
-        Americanas().main()
-        print('Sucesso função Americanas')
-    except Exception as e:
-        print(f"Error in Americanas: {e}")
+        print(f"Error in Frescas: {e}")
     try:
         Mesa().main()
         print('Sucesso função Mesa')
     except Exception as e:
         print(f"Error in Mesa: {e}")
     try:
-        Outros().main()
-        print('Sucesso função Outros')
+        Sucos().main()
+        print('Sucesso função Sucos')
     except Exception as e:
-        print(f"Error in Outros: {e}")
+        print(f"Error in Sucos: {e}")
+    try:
+        Passas().main()
+        print('Sucesso função Passas')
+    except Exception as e:
+        print(f"Error in Passas: {e}")
+    try:
+        Main().main()
+        print('Sucesso função Main')
+    except Exception as e:
+        print(f"Error in Main: {e}")

@@ -30,17 +30,17 @@ class Main:
         quantidade_min: Optional[int] = None,
         quantidade_max: Optional[int] = None
     ):
-        df = Main.main()
+        df:pd.DataFrame = Main.main()
         if df is None or df.empty:
             return pd.DataFrame()
             
         filtered_df = df.copy()
         
         if categoria is not None:
-            filtered_df = filtered_df[filtered_df['categoria'] == categoria.upper().replace('_',' ')]
+            filtered_df = filtered_df[filtered_df['categoria'].str.upper() == categoria.upper().replace('_',' ')]
             
         if produto is not None:
-            filtered_df = filtered_df[filtered_df['produto'] == produto.upper().replace('_',' ')]
+            filtered_df = filtered_df[filtered_df['produto'].str.upper() == produto.upper().replace('_',' ')]
             
         if ano is not None:
             filtered_df = filtered_df[filtered_df['ano'] == ano]
@@ -50,7 +50,9 @@ class Main:
         
         if quantidade_max is not None:
             filtered_df = filtered_df[filtered_df['quantidade'] <= quantidade_max]
-            
+        
+        if filtered_df is None or filtered_df.empty:
+            return pd.DataFrame()
         return filtered_df
 
 if __name__ == "__main__":

@@ -3,7 +3,9 @@ from typing import Optional, List
 from app.routers import (
     producao,
     comercializacao,
-    processamento
+    processamento,
+    exportacao,
+    importacao,
 )
 import sys
 sys.path.append("app")
@@ -17,6 +19,8 @@ app = FastAPI(
 app.include_router(producao.router)
 app.include_router(comercializacao.router)
 app.include_router(processamento.router)
+app.include_router(exportacao.router)
+app.include_router(importacao.router)
 
 @app.get("/")
 async def root():

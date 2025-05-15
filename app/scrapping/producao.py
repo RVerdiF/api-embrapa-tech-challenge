@@ -38,10 +38,10 @@ class Main:
         filtered_df = df.copy()
         
         if categoria is not None:
-            filtered_df = filtered_df[filtered_df['categoria'] == categoria.replace('_',' ')]
+            filtered_df = filtered_df[filtered_df['categoria'].str.upper() == categoria.replace('_',' ')]
             
         if produto is not None:
-            filtered_df = filtered_df[filtered_df['produto'] == produto.replace('_',' ')]
+            filtered_df = filtered_df[filtered_df['produto'].str.upper() == produto.replace('_',' ')]
             
         if ano is not None:
             filtered_df = filtered_df[filtered_df['ano'] == ano]

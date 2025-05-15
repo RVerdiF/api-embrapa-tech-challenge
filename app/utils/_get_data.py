@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-from io import StringIO,BytesIO,TextIOWrapper
+from io import StringIO
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from app.utils._criar_categoria import extrair_categorias_hierarquicas
@@ -14,7 +14,6 @@ class data_extract_1:
 
     def getdata(self,url:str) -> pd.DataFrame:
         try:
-
             session = requests.Session()
             retry_strategy = Retry(
                 total=3,
@@ -30,12 +29,11 @@ class data_extract_1:
             response = session.get(self.base_url, timeout=10, verify=False)
             response.raise_for_status()
             
+            # Get the content and decode it properly
             response = session.get(url, timeout=10, verify=False)
             response.raise_for_status()
-            
-            bio = BytesIO(response.content)
-            wrapper = TextIOWrapper(bio, encoding='utf-8')
-            df = pd.read_csv(wrapper, sep=None, engine='python', encoding='utf-8')
+            content = response.content.decode('utf-8')
+            df = pd.read_csv(StringIO(content), sep=None, engine='python')
             
             session.close()
             return df
@@ -115,7 +113,6 @@ class data_extract_2:
 
     def getdata(self,url:str) -> pd.DataFrame:
         try:
-
             session = requests.Session()
             retry_strategy = Retry(
                 total=3,
@@ -131,12 +128,11 @@ class data_extract_2:
             response = session.get(self.base_url, timeout=10, verify=False)
             response.raise_for_status()
             
+            # Get the content and decode it properly
             response = session.get(url, timeout=10, verify=False)
             response.raise_for_status()
-            
-            bio = BytesIO(response.content)
-            wrapper = TextIOWrapper(bio, encoding='utf-8')
-            df = pd.read_csv(wrapper, sep=None, engine='python', encoding='utf-8')
+            content = response.content.decode('utf-8')
+            df = pd.read_csv(StringIO(content), sep=None, engine='python')
             
             session.close()
             return df
@@ -158,7 +154,7 @@ class data_extract_2:
             var_name='ano', 
             value_name='quantidade'
         ).reset_index(drop=False)
-        df_pivoted.drop('id',inplace=True)
+        df_pivoted.drop(columns='id',inplace=True)
         df_pivoted['produto'] = self.produto
         
         validated_records = []
@@ -167,7 +163,7 @@ class data_extract_2:
             try:
                 validated_record = model(
                     index=row['index'],
-                    categoria=row['país'],
+                    pais=row['país'],
                     produto=row['produto'],
                     quantidade=row['quantidade'],
                     ano=row['ano']

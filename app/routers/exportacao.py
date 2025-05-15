@@ -1,19 +1,19 @@
 from fastapi import APIRouter, HTTPException, Response, Query
-from app.scrapping.comercializacao import Main as comercializacao_main
+from app.scrapping.exportacao import Main as exportacao_main
 from typing import List, Dict, Any
 from http import HTTPStatus
 import json
 
 router = APIRouter(
-    prefix="/comercializacao",
-    tags=["comercializacao"],
+    prefix="/exportacao",
+    tags=["exportacao"],
     responses={404: {"description": "Item not found"}},
 )
 
 @router.get("/")
-async def get_comercializacao() -> Dict[str, Any]:
+async def get_exportacao() -> Dict[str, Any]:
     try:
-        data = comercializacao_main.main()
+        data = exportacao_main().main()
         
         if data.empty:
             return Response(
@@ -42,11 +42,11 @@ async def get_comercializacao() -> Dict[str, Any]:
             detail=f"Error retrieving data: {str(e)}"
         )
 
-@router.get("/categoria/{categoria}")
-async def get_comercializacao_by_category(categoria:str = None):
+@router.get("/produto/{produto}")    
+async def get_exportacao_by_product(produto:str = None) -> Dict[str, Any]:
     try:
-        data = comercializacao_main.filter(categoria)
-        
+        data = exportacao_main.filter(produto=produto)
+
         if data.empty:
             return Response(
                 status_code=HTTPStatus.NO_CONTENT,
@@ -56,9 +56,9 @@ async def get_comercializacao_by_category(categoria:str = None):
                 }),
                 media_type="application/json"
             )
-            
+
         result = data.to_json(orient='records', indent=2, force_ascii=False)
-        
+
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
@@ -67,18 +67,18 @@ async def get_comercializacao_by_category(categoria:str = None):
             }),
             media_type="application/json"
         )
-        
+
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
             detail=f"Error retrieving data: {str(e)}"
         )
 
-@router.get("/produto/{produto}")
-async def get_comercializacao_by_product(produto:str = None):
+@router.get("/pais/{pais}")    
+async def get_exportacao_by_country(pais:str = None) -> Dict[str, Any]:
     try:
-        data = comercializacao_main.filter(produto=produto)
-        
+        data = exportacao_main.filter(pais=pais)
+
         if data.empty:
             return Response(
                 status_code=HTTPStatus.NO_CONTENT,
@@ -88,9 +88,9 @@ async def get_comercializacao_by_product(produto:str = None):
                 }),
                 media_type="application/json"
             )
-            
+
         result = data.to_json(orient='records', indent=2, force_ascii=False)
-        
+
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
@@ -99,17 +99,18 @@ async def get_comercializacao_by_product(produto:str = None):
             }),
             media_type="application/json"
         )
-        
+
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
             detail=f"Error retrieving data: {str(e)}"
         )
-@router.get("/ano/{ano}")
-async def get_comercializacao_by_year(ano:int = None):
+
+@router.get("/ano/{ano}")   
+async def get_exportacao_by_year(ano:int = None) -> Dict[str, Any]:
     try:
-        data = comercializacao_main.filter(ano=ano)
-        
+        data = exportacao_main.filter(ano=ano)
+
         if data.empty:
             return Response(
                 status_code=HTTPStatus.NO_CONTENT,
@@ -119,9 +120,9 @@ async def get_comercializacao_by_year(ano:int = None):
                 }),
                 media_type="application/json"
             )
-            
+
         result = data.to_json(orient='records', indent=2, force_ascii=False)
-        
+
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
@@ -130,7 +131,7 @@ async def get_comercializacao_by_year(ano:int = None):
             }),
             media_type="application/json"
         )
-        
+
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -138,10 +139,10 @@ async def get_comercializacao_by_year(ano:int = None):
         )
     
 @router.get("/quantidade/min/{quantidade}")
-async def get_comercializacao_by_min_quantity(quantidade:int = None):
+async def get_exportacao_by_min_quantity(quantidade:int = None) -> Dict[str, Any]:
     try:
-        data = comercializacao_main.filter(quantidade_min=quantidade)
-        
+        data = exportacao_main.filter(quantidade_min=quantidade)
+
         if data.empty:
             return Response(
                 status_code=HTTPStatus.NO_CONTENT,
@@ -151,9 +152,9 @@ async def get_comercializacao_by_min_quantity(quantidade:int = None):
                 }),
                 media_type="application/json"
             )
-            
+
         result = data.to_json(orient='records', indent=2, force_ascii=False)
-        
+
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
@@ -162,7 +163,7 @@ async def get_comercializacao_by_min_quantity(quantidade:int = None):
             }),
             media_type="application/json"
         )
-        
+
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -170,10 +171,10 @@ async def get_comercializacao_by_min_quantity(quantidade:int = None):
         )
 
 @router.get("/quantidade/max/{quantidade}")
-async def get_comercializacao_by_max_quantity(quantidade:int = None):
+async def get_exportacao_by_max_quantity(quantidade:int = None) -> Dict[str, Any]:
     try:
-        data = comercializacao_main.filter(quantidade_max=quantidade)
-        
+        data = exportacao_main.filter(quantidade_max=quantidade)
+
         if data.empty:
             return Response(
                 status_code=HTTPStatus.NO_CONTENT,
@@ -183,9 +184,9 @@ async def get_comercializacao_by_max_quantity(quantidade:int = None):
                 }),
                 media_type="application/json"
             )
-            
+
         result = data.to_json(orient='records', indent=2, force_ascii=False)
-        
+
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
@@ -194,24 +195,24 @@ async def get_comercializacao_by_max_quantity(quantidade:int = None):
             }),
             media_type="application/json"
         )
-        
+
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
             detail=f"Error retrieving data: {str(e)}"
         )
-    
+
 @router.get("/filter")
-async def get_comercializacao_by_filter(
-    categoria: str = Query(None, description="Filter by category"),
+async def get_exportacao_by_filter(
+    pais: str = Query(None, description="Filter by country"),
     produto: str = Query(None, description="Filter by product"),
     ano: int = Query(None, description="Filter by year"),
     quantidade_min: int = Query(None, description="Filter by minimum quantity"),
     quantidade_max: int = Query(None, description="Filter by maximum quantity")
 ):
     try:
-        data = comercializacao_main.filter(
-            categoria=categoria,
+        data = exportacao_main.filter(
+            pais=pais,
             produto=produto, 
             ano=ano,
             quantidade_min=quantidade_min,

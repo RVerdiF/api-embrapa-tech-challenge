@@ -24,8 +24,18 @@ app.include_router(importacao.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
-
+    return {
+        "api_name": "API Embrapa",
+        "description": "API para extração de informações referentes à vitivinicultura no RS.",
+        "version": "0.1.0",
+        "endpoints": [
+            "/producao",
+            "/comercializacao", 
+            "/processamento",
+            "/exportacao",
+            "/importacao"
+        ]
+    }
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

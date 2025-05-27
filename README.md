@@ -140,3 +140,68 @@ embrapa-api/
 
 Os dados são extraídos do portal Vitibrasil da Embrapa:
 - [http://vitibrasil.cnpuv.embrapa.br/](http://vitibrasil.cnpuv.embrapa.br/)
+
+## Deploy em Máquina Virtual
+
+### Pré-requisitos
+- Uma máquina virtual com Linux
+- Docker e Docker Compose instalados
+- Acesso SSH à máquina virtual
+
+### Passo a Passo Simplificado
+
+1. **Conecte-se à VM e instale Docker**:
+   ```bash
+   ssh usuario@endereco-da-vm
+   sudo apt update && sudo apt install -y docker.io docker-compose
+   sudo systemctl enable docker && sudo systemctl start docker
+   ```
+
+2. **Clone e execute a aplicação**:
+   ```bash
+   git clone <url-do-repositorio> && cd embrapa-api
+   cp .env.example .env
+   docker-compose up -d
+   ```
+
+3. **Configure um proxy reverso (opcional)**:
+   ```bash
+   sudo apt install -y nginx
+   sudo nano /etc/nginx/sites-available/embrapa-api
+   # Adicione a configuração básica do Nginx
+   sudo ln -s /etc/nginx/sites-available/embrapa-api /etc/nginx/sites-enabled/
+   sudo systemctl restart nginx
+   ```
+
+## Exemplo de Uso para Machine Learning
+
+### Caso de Uso: Previsão de Produção de Uvas
+
+Este exemplo conceitual demonstra como utilizar os dados da API para criar um modelo preditivo de machine learning:
+
+#### Fluxo de Trabalho
+
+1. **Coleta de Dados**: Utilize o endpoint `/producao` para obter dados históricos de produção de uvas.
+
+2. **Preparação dos Dados**: 
+   - Converta os dados para formato numérico
+   - Crie features adicionais como produção do ano anterior e variação percentual
+   - Codifique variáveis categóricas (estado, produto)
+   - Divida os dados em conjuntos de treino e teste
+
+3. **Treinamento do Modelo**:
+   - Utilize um algoritmo como Random Forest Regressor
+   - Treine o modelo com dados históricos
+   - Avalie o desempenho usando métricas como MSE e R²
+
+4. **Visualização e Análise**:
+   - Identifique as features mais importantes para a previsão
+   - Compare valores reais vs. previstos
+   - Analise tendências por região e tipo de produto
+
+5. **Previsões Futuras**:
+   - Utilize o modelo treinado para prever a produção do próximo ano
+   - Gere previsões por estado e produto
+   - Crie relatórios para auxiliar no planejamento da produção
+
+Este fluxo de trabalho permite que produtores e empresas do setor vitivinícola utilizem os dados históricos disponibilizados pela API para tomar decisões baseadas em dados e antecipar tendências de mercado.

@@ -1,10 +1,10 @@
 # API Embrapa - Vitivinicultura
 
-API para extração e consulta de informações referentes à vitivinicultura no Rio Grande do Sul, baseada em dados da Embrapa.
+API para extração e consulta de informações referentes à vitivinicultura, baseada em dados da Embrapa.
 
 ## Descrição
 
-Este projeto consiste em uma API RESTful desenvolvida com FastAPI que fornece acesso a dados sobre a vitivinicultura no Rio Grande do Sul. A API extrai dados do portal Vitibrasil da Embrapa e os disponibiliza em formato JSON através de endpoints estruturados.
+Este projeto consiste em uma API RESTful desenvolvida com FastAPI que fornece acesso a dados sobre vitivinicultura. A API extrai dados do portal Vitibrasil da Embrapa e os disponibiliza em formato JSON através de endpoints estruturados.
 
 ## Fluxograma do Projeto
 

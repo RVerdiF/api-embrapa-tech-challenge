@@ -140,7 +140,3 @@ embrapa-api/
 
 Os dados são extraídos do portal Vitibrasil da Embrapa:
 - [http://vitibrasil.cnpuv.embrapa.br/](http://vitibrasil.cnpuv.embrapa.br/)
-
-## Licença
-
-Este projeto é distribuído sob a licença [inserir licença].

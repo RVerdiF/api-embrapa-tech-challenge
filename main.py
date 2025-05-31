@@ -7,12 +7,10 @@ from app.routers import (
     exportacao,
     importacao,
 )
-import sys
-sys.path.append("app")
 
 app = FastAPI(
     title="API Embrapa",
-    description="API para extração de informações referentes à vitivinicultura no RS.",
+    description="API para extração de informações referentes à vitivinicultura.",
     version="0.1.0",
 )
 
@@ -29,11 +27,11 @@ async def root():
         "description": "API para extração de informações referentes à vitivinicultura no RS.",
         "version": "0.1.0",
         "endpoints": [
-            "/producao",
-            "/comercializacao", 
-            "/processamento",
-            "/exportacao",
-            "/importacao"
+            "/v1/producao",
+            "/v1/comercializacao", 
+            "/v1/processamento",
+            "/v1/exportacao",
+            "/v1/importacao"
         ]
     }
 if __name__ == "__main__":

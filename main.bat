@@ -35,7 +35,7 @@ IF !ENV_CREATED!==1 (
 
 REM Run the application
 ECHO Starting the application...
-python -m app.main
+python -m main
 IF !ERRORLEVEL! NEQ 0 (
     ECHO Application exited with error code !ERRORLEVEL!.
     PAUSE

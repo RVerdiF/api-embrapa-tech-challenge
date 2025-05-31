@@ -5,7 +5,7 @@ from http import HTTPStatus
 import json
 
 router = APIRouter(
-    prefix="/importacao",
+    prefix="/v1/importacao",
     tags=["importacao"],
     responses={404: {"description": "Item not found"}},
 )

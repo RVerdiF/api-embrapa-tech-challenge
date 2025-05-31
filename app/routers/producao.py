@@ -6,7 +6,7 @@ import json
 
 
 router = APIRouter(
-    prefix="/producao",
+    prefix="/v1/producao",
     tags=["producao"],
     responses={404: {"description": "Item not found"}},
 )

@@ -136,6 +136,7 @@ class Main:
             raise e
         
     def filter(
+        self,
         pais: Optional[str] = None,
         produto: Optional[str] = None,
         ano: Optional[int] = None,

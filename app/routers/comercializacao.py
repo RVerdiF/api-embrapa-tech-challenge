@@ -13,7 +13,7 @@ router = APIRouter(
 @router.get("/")
 async def get_comercializacao() -> Dict[str, Any]:
     try:
-        data = comercializacao_main.main()
+        data = comercializacao_main().main()
         
         if data.empty:
             return Response(
@@ -45,7 +45,7 @@ async def get_comercializacao() -> Dict[str, Any]:
 @router.head("/")
 async def head_comercializacao():
     try:
-        data = comercializacao_main.main()
+        data = comercializacao_main().main()
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -57,7 +57,7 @@ async def head_comercializacao():
 @router.get("/categoria/{categoria}")
 async def get_comercializacao_by_category(categoria:str = None):
     try:
-        data = comercializacao_main.filter(categoria=categoria)
+        data = comercializacao_main().filter(categoria=categoria)
         
         if data.empty:
             return Response(
@@ -89,7 +89,7 @@ async def get_comercializacao_by_category(categoria:str = None):
 @router.head("/categoria/{categoria}")
 async def head_comercializacao_by_category(categoria:str = None):
     try:
-        data = comercializacao_main.filter(categoria=categoria)
+        data = comercializacao_main().filter(categoria=categoria)
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -101,7 +101,7 @@ async def head_comercializacao_by_category(categoria:str = None):
 @router.get("/produto/{produto}")
 async def get_comercializacao_by_product(produto:str = None):
     try:
-        data = comercializacao_main.filter(produto=produto)
+        data = comercializacao_main().filter(produto=produto)
         
         if data.empty:
             return Response(
@@ -133,7 +133,7 @@ async def get_comercializacao_by_product(produto:str = None):
 @router.head("/produto/{produto}")
 async def head_comercializacao_by_product(produto:str = None):
     try:
-        data = comercializacao_main.filter(produto=produto)
+        data = comercializacao_main().filter(produto=produto)
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -145,7 +145,7 @@ async def head_comercializacao_by_product(produto:str = None):
 @router.get("/ano/{ano}")
 async def get_comercializacao_by_year(ano:int = None):
     try:
-        data = comercializacao_main.filter(ano=ano)
+        data = comercializacao_main().filter(ano=ano)
         
         if data.empty:
             return Response(
@@ -177,7 +177,7 @@ async def get_comercializacao_by_year(ano:int = None):
 @router.head("/ano/{ano}")
 async def head_comercializacao_by_year(ano:int = None):
     try:
-        data = comercializacao_main.filter(ano=ano)
+        data = comercializacao_main().filter(ano=ano)
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -189,7 +189,7 @@ async def head_comercializacao_by_year(ano:int = None):
 @router.get("/quantidade/min/{quantidade}")
 async def get_comercializacao_by_min_quantity(quantidade:int = None):
     try:
-        data = comercializacao_main.filter(quantidade_min=quantidade)
+        data = comercializacao_main().filter(quantidade_min=quantidade)
         
         if data.empty:
             return Response(
@@ -221,7 +221,7 @@ async def get_comercializacao_by_min_quantity(quantidade:int = None):
 @router.head("/quantidade/min/{quantidade}")
 async def head_comercializacao_by_min_quantity(quantidade:int = None):
     try:
-        data = comercializacao_main.filter(quantidade_min=quantidade)
+        data = comercializacao_main().filter(quantidade_min=quantidade)
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -233,7 +233,7 @@ async def head_comercializacao_by_min_quantity(quantidade:int = None):
 @router.get("/quantidade/max/{quantidade}")
 async def get_comercializacao_by_max_quantity(quantidade:int = None):
     try:
-        data = comercializacao_main.filter(quantidade_max=quantidade)
+        data = comercializacao_main().filter(quantidade_max=quantidade)
         
         if data.empty:
             return Response(
@@ -265,7 +265,7 @@ async def get_comercializacao_by_max_quantity(quantidade:int = None):
 @router.head("/quantidade/max/{quantidade}")
 async def head_comercializacao_by_max_quantity(quantidade:int = None):
     try:
-        data = comercializacao_main.filter(quantidade_max=quantidade)
+        data = comercializacao_main().filter(quantidade_max=quantidade)
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -283,7 +283,7 @@ async def get_comercializacao_by_filter(
     quantidade_max: int = Query(None, description="Filter by maximum quantity")
 ):
     try:
-        data = comercializacao_main.filter(
+        data = comercializacao_main().filter(
             categoria=categoria,
             produto=produto, 
             ano=ano,
@@ -327,7 +327,7 @@ async def head_comercializacao_by_filter(
     quantidade_max: int = Query(None, description="Filter by maximum quantity")
 ):
     try:
-        data = comercializacao_main.filter(
+        data = comercializacao_main().filter(
             categoria=categoria,
             produto=produto, 
             ano=ano,

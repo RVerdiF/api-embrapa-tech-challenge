@@ -7,6 +7,8 @@ from app.models.comercializacao import Comercializacao as Comercializacaomodel
 from pydantic import ValidationError
 
 class Main:
+    def __init__(self):
+        pass
     
     def main() -> pd.DataFrame:
         try:
@@ -24,6 +26,7 @@ class Main:
             raise e
 
     def filter(
+        self,
         categoria: Optional[str] = None,
         produto: Optional[str] = None,
         ano: Optional[int] = None,

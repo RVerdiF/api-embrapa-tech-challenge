@@ -96,6 +96,7 @@ A API está disponível em:
 
 Acesse a documentação interativa da API em:
 - `http://localhost:8000/docs`
+- `https://api-embrapa-tech-challenge.onrender.com/docs`
 
 ### Endpoints Principais
 

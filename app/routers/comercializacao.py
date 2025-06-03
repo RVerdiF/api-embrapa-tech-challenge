@@ -25,13 +25,13 @@ async def get_comercializacao() -> Dict[str, Any]:
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -57,7 +57,7 @@ async def head_comercializacao():
 @router.get("/categoria/{categoria}")
 async def get_comercializacao_by_category(categoria:str = None):
     try:
-        data = comercializacao_main.filter(categoria)
+        data = comercializacao_main.filter(categoria=categoria)
         
         if data.empty:
             return Response(
@@ -69,13 +69,13 @@ async def get_comercializacao_by_category(categoria:str = None):
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -89,7 +89,7 @@ async def get_comercializacao_by_category(categoria:str = None):
 @router.head("/categoria/{categoria}")
 async def head_comercializacao_by_category(categoria:str = None):
     try:
-        data = comercializacao_main.filter(categoria)
+        data = comercializacao_main.filter(categoria=categoria)
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -113,13 +113,13 @@ async def get_comercializacao_by_product(produto:str = None):
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -157,13 +157,13 @@ async def get_comercializacao_by_year(ano:int = None):
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -201,13 +201,13 @@ async def get_comercializacao_by_min_quantity(quantidade:int = None):
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -245,13 +245,13 @@ async def get_comercializacao_by_max_quantity(quantidade:int = None):
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -301,13 +301,13 @@ async def get_comercializacao_by_filter(
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )

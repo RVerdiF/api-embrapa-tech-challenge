@@ -13,7 +13,7 @@ router = APIRouter(
 @router.get("/")
 async def get_processamento() -> Dict[str, Any]:
     try:
-        data = processamento_main().main()
+        data = processamento_main.main()
         
         if data.empty:
             return Response(
@@ -25,13 +25,13 @@ async def get_processamento() -> Dict[str, Any]:
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -45,7 +45,7 @@ async def get_processamento() -> Dict[str, Any]:
 @router.head("/")
 async def head_processamento():
     try:
-        data = processamento_main().main()
+        data = processamento_main.main()
         status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
         return Response(status_code=status_code)
     except Exception as e:
@@ -69,13 +69,13 @@ async def get_processamento_by_category(categoria:str = None) -> Dict[str, Any]:
                 media_type="application/json"
             )
 
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
 
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -113,13 +113,13 @@ async def get_processamento_by_product(produto:str = None) -> Dict[str, Any]:
                 media_type="application/json"
             )
 
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
 
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -157,13 +157,13 @@ async def get_processamento_by_year(ano:int = None) -> Dict[str, Any]:
                 media_type="application/json"
             )
 
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
 
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -201,13 +201,13 @@ async def get_processamento_by_min_quantity(quantidade:int = None) -> Dict[str, 
                 media_type="application/json"
             )
 
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
 
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -245,13 +245,13 @@ async def get_processamento_by_max_quantity(quantidade:int = None) -> Dict[str, 
                 media_type="application/json"
             )
 
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
 
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )
@@ -301,13 +301,13 @@ async def get_processamento_by_filter(
                 media_type="application/json"
             )
             
-        result = data.to_json(orient='records', indent=2, force_ascii=False)
+        result = data.to_json(orient='records', force_ascii=False)
         
         return Response(
             status_code=HTTPStatus.OK,
             content=json.dumps({
                 "message": "Data retrieved successfully",
-                "data": result
+                "data": json.loads(result)
             }),
             media_type="application/json"
         )

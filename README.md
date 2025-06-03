@@ -178,12 +178,12 @@ Este exemplo conceitual demonstra como utilizar os dados da API para criar um mo
 
 #### Fluxo de Trabalho
 
-1. **Coleta de Dados**: Utilize o endpoint `/producao` para obter dados históricos de produção de uvas.
+1. **Coleta de Dados**: Utilize o endpoint `/producao/filter?categoria=VINHO_DE_MESA&produto=TINTO` para obter dados históricos de produção de vinho tinto.
 
 2. **Preparação dos Dados**: 
    - Converta os dados para formato numérico
    - Crie features adicionais como produção do ano anterior e variação percentual
-   - Codifique variáveis categóricas (estado, produto)
+   - Codifique variáveis categóricas
    - Divida os dados em conjuntos de treino e teste
 
 3. **Treinamento do Modelo**:

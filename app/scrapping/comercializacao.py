@@ -10,7 +10,7 @@ class Main:
     def __init__(self):
         pass
     
-    def main() -> pd.DataFrame:
+    def main(self) -> pd.DataFrame:
         try:
             url = yaml.safe_load(open('app/scrapping/urls.yaml', encoding='utf-8'))\
                 .get('Comercializacao', {})\

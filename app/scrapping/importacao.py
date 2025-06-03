@@ -106,7 +106,7 @@ class Passas:
                 .get('subcategoria', {})\
                 .get('passas', {})\
                 .get('downloadurl')
-            df_pivoted = getdata('Sucos').main(url,Sucosmodel)
+            df_pivoted = getdata('Passas').main(url,Passasmodel)
             if not df_pivoted.empty:
                 return df_pivoted
             else:

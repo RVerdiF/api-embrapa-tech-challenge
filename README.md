@@ -8,11 +8,11 @@ Este projeto consiste em uma API RESTful desenvolvida com FastAPI que fornece ac
 
 ## Fluxograma geral do Projeto
 
-![Fluxograma da API Embrapa](assets\fluxograma_api.png)
+![Fluxograma da API Embrapa](assets/fluxograma_api.png)
 
 ## Diagrama de sequencia do Projeto
 
-![Diagrama de sequencia da API Embrapa](assets\diagrama_de_sequencia.png)
+![Diagrama de sequencia da API Embrapa](assets/diagrama_de_sequencia.png)
 
 ## Categorias de Dados
 

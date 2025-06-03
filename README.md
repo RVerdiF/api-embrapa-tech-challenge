@@ -87,7 +87,10 @@ A API fornece informações sobre:
 
 ## Uso da API
 
-A API estará disponível em `http://localhost:8000`.
+A API está disponível em:
+- Produção: `https://api-embrapa-tech-challenge.onrender.com/`
+- Desenvolvimento local: `http://localhost:8000`
+
 
 ### Documentação Swagger
 

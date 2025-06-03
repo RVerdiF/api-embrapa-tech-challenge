@@ -43,6 +43,18 @@ async def get_producao() -> Dict[str, Any]:
             detail=f"Error retrieving data: {str(e)}"
         )
 
+@router.head("/")
+async def head_producao():
+    try:
+        data = producao_main.main()
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/categoria/{categoria}")
 async def get_producao_by_category(categoria:str = None):
     try:
@@ -74,6 +86,19 @@ async def get_producao_by_category(categoria:str = None):
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
             detail=f"Error retrieving data: {str(e)}"
         )
+
+@router.head("/categoria/{categoria}")
+async def head_producao_by_category(categoria:str = None):
+    try:
+        data = producao_main.filter(categoria)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/produto/{produto}")
 async def get_producao_by_product(produto:str = None):
     try:
@@ -105,6 +130,19 @@ async def get_producao_by_product(produto:str = None):
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
             detail=f"Error retrieving data: {str(e)}"
         )
+
+@router.head("/produto/{produto}")
+async def head_producao_by_product(produto:str = None):
+    try:
+        data = producao_main.filter(produto=produto)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/ano/{ano}")
 async def get_producao_by_year(ano:int = None):
     try:
@@ -131,6 +169,18 @@ async def get_producao_by_year(ano:int = None):
             media_type="application/json"
         )
         
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/ano/{ano}")
+async def head_producao_by_year(ano:int = None):
+    try:
+        data = producao_main.filter(ano=ano)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -169,6 +219,18 @@ async def get_producao_by_min_quantity(quantidade:int = None):
             detail=f"Error retrieving data: {str(e)}"
         )
 
+@router.head("/quantidade/min/{quantidade}")
+async def head_producao_by_min_quantity(quantidade:int = None):
+    try:
+        data = producao_main.filter(quantidade_min=quantidade)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/quantidade/max/{quantidade}")
 async def get_producao_by_max_quantity(quantidade:int = None):
     try:
@@ -195,6 +257,18 @@ async def get_producao_by_max_quantity(quantidade:int = None):
             media_type="application/json"
         )
         
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/quantidade/max/{quantidade}")
+async def head_producao_by_max_quantity(quantidade:int = None):
+    try:
+        data = producao_main.filter(quantidade_max=quantidade)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -239,6 +313,30 @@ async def get_producao_by_filter(
             media_type="application/json"
         )
         
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/filter")
+async def head_producao_by_filter(
+    categoria: str = Query(None, description="Filter by category"),
+    produto: str = Query(None, description="Filter by product"),
+    ano: int = Query(None, description="Filter by year"),
+    quantidade_min: int = Query(None, description="Filter by minimum quantity"),
+    quantidade_max: int = Query(None, description="Filter by maximum quantity")
+):
+    try:
+        data = producao_main.filter(
+            categoria=categoria,
+            produto=produto, 
+            ano=ano,
+            quantidade_min=quantidade_min,
+            quantidade_max=quantidade_max
+        )
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,

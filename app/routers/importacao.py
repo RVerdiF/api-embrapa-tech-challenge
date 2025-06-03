@@ -42,6 +42,18 @@ async def get_importacao() -> Dict[str, Any]:
             detail=f"Error retrieving data: {str(e)}"
         )
 
+@router.head("/")
+async def head_importacao():
+    try:
+        data = importacao_main().main()
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/produto/{produto}")    
 async def get_importacao_by_product(produto:str = None) -> Dict[str, Any]:
     try:
@@ -68,6 +80,18 @@ async def get_importacao_by_product(produto:str = None) -> Dict[str, Any]:
             media_type="application/json"
         )
 
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/produto/{produto}")
+async def head_importacao_by_product(produto:str = None):
+    try:
+        data = importacao_main.filter(produto=produto)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -106,6 +130,18 @@ async def get_importacao_by_country(pais:str = None) -> Dict[str, Any]:
             detail=f"Error retrieving data: {str(e)}"
         )
 
+@router.head("/pais/{pais}")
+async def head_importacao_by_country(pais:str = None):
+    try:
+        data = importacao_main.filter(pais=pais)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/ano/{ano}")   
 async def get_importacao_by_year(ano:int = None) -> Dict[str, Any]:
     try:
@@ -132,6 +168,18 @@ async def get_importacao_by_year(ano:int = None) -> Dict[str, Any]:
             media_type="application/json"
         )
 
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/ano/{ano}")
+async def head_importacao_by_year(ano:int = None):
+    try:
+        data = importacao_main.filter(ano=ano)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -170,6 +218,18 @@ async def get_importacao_by_min_quantity(quantidade:int = None) -> Dict[str, Any
             detail=f"Error retrieving data: {str(e)}"
         )
 
+@router.head("/quantidade/min/{quantidade}")
+async def head_importacao_by_min_quantity(quantidade:int = None):
+    try:
+        data = importacao_main.filter(quantidade_min=quantidade)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
 @router.get("/quantidade/max/{quantidade}")
 async def get_importacao_by_max_quantity(quantidade:int = None) -> Dict[str, Any]:
     try:
@@ -196,6 +256,18 @@ async def get_importacao_by_max_quantity(quantidade:int = None) -> Dict[str, Any
             media_type="application/json"
         )
 
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/quantidade/max/{quantidade}")
+async def head_importacao_by_max_quantity(quantidade:int = None):
+    try:
+        data = importacao_main.filter(quantidade_max=quantidade)
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -240,6 +312,30 @@ async def get_importacao_by_filter(
             media_type="application/json"
         )
         
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving data: {str(e)}"
+        )
+
+@router.head("/filter")
+async def head_importacao_by_filter(
+    pais: str = Query(None, description="Filter by country"),
+    produto: str = Query(None, description="Filter by product"),
+    ano: int = Query(None, description="Filter by year"),
+    quantidade_min: int = Query(None, description="Filter by minimum quantity"),
+    quantidade_max: int = Query(None, description="Filter by maximum quantity")
+):
+    try:
+        data = importacao_main.filter(
+            pais=pais,
+            produto=produto, 
+            ano=ano,
+            quantidade_min=quantidade_min,
+            quantidade_max=quantidade_max
+        )
+        status_code = HTTPStatus.OK if not data.empty else HTTPStatus.NO_CONTENT
+        return Response(status_code=status_code)
     except Exception as e:
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,

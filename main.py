@@ -1,5 +1,6 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Response
 from typing import Optional, List
+from http import HTTPStatus
 from app.routers import (
     producao,
     comercializacao,
@@ -34,6 +35,11 @@ async def root():
             "/v1/importacao"
         ]
     }
+
+@app.head("/")
+async def head_root():
+    return Response(status_code=HTTPStatus.OK)
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

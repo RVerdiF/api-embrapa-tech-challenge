@@ -33,7 +33,7 @@ class Main:
         quantidade_min: Optional[int] = None,
         quantidade_max: Optional[int] = None
     ):
-        df:pd.DataFrame = Main.main()
+        df:pd.DataFrame = Main().main()
         if df is None or df.empty:
             return pd.DataFrame()
             

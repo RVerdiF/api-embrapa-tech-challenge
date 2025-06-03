@@ -6,9 +6,13 @@ API para extração e consulta de informações referentes à vitivinicultura, b
 
 Este projeto consiste em uma API RESTful desenvolvida com FastAPI que fornece acesso a dados sobre vitivinicultura. A API extrai dados do portal Vitibrasil da Embrapa e os disponibiliza em formato JSON através de endpoints estruturados.
 
-## Fluxograma do Projeto
+## Fluxograma geral do Projeto
 
-![Fluxograma da API Embrapa](assets/Embrapa_API_fluxo.png)
+![Fluxograma da API Embrapa](assets\fluxograma_api.png)
+
+## Diagrama de sequencia do Projeto
+
+![Diagrama de sequencia da API Embrapa](assets\diagrama_de_sequencia.png)
 
 ## Categorias de Dados
 
@@ -74,22 +78,12 @@ A API fornece informações sobre:
    cd embrapa-api
    ```
 
-2. Crie e ative um ambiente virtual:
+2. Execute o script de instalação e inicialização:
    ```
-   python -m venv venv
-   venv\Scripts\activate  # Windows
-   source venv/bin/activate  # Linux/Mac
+   main.bat
    ```
 
-3. Instale as dependências:
-   ```
-   pip install -r requirements.txt
-   ```
-
-4. Execute a aplicação:
-   ```
-   uvicorn app.main:app --reload
-   ```
+   O script irá automaticamente criar um ambiente virtual, instalar as dependências necessárias e iniciar a aplicação.
 
 ## Uso da API
 
@@ -102,38 +96,41 @@ Acesse a documentação interativa da API em:
 
 ### Endpoints Principais
 
-- **GET /producao**: Retorna dados de produção
-- **GET /comercializacao**: Retorna dados de comercialização
-- **GET /processamento**: Retorna dados de processamento
-- **GET /exportacao**: Retorna dados de exportação
-- **GET /importacao**: Retorna dados de importação
+- **GET /v1/producao**: Retorna dados de produção
+- **GET /v1/comercializacao**: Retorna dados de comercialização
+- **GET /v1/processamento**: Retorna dados de processamento
+- **GET /v1/exportacao**: Retorna dados de exportação
+- **GET /v1/importacao**: Retorna dados de importação
 
 ### Exemplos de Filtros
 
 Cada categoria possui endpoints para filtrar dados:
 
-- **Por categoria**: `/producao/categoria/{categoria}`
-- **Por produto**: `/producao/produto/{produto}`
-- **Por ano**: `/producao/ano/{ano}`
-- **Por quantidade mínima**: `/producao/quantidade/min/{quantidade}`
-- **Por quantidade máxima**: `/producao/quantidade/max/{quantidade}`
-- **Filtros combinados**: `/producao/filter?categoria=X&produto=Y&ano=2022`
+- **Por categoria**: `/v1/producao/categoria/{categoria}`
+- **Por produto**: `/v1/producao/produto/{produto}`
+- **Por ano**: `/v1/producao/ano/{ano}`
+- **Por quantidade mínima**: `/v1/producao/quantidade/min/{quantidade}`
+- **Por quantidade máxima**: `/v1/producao/quantidade/max/{quantidade}`
+- **Filtros combinados**: `/v1/producao/filter?categoria=X&produto=Y&ano=2022`
 
 ## Estrutura do Projeto
 
 ```
-embrapa-api/
+./
 ├── app/
-│   ├── models/          # Modelos de dados
-│   ├── routers/         # Rotas da API
-│   ├── scrapping/       # Módulos para extração de dados
-│   ├── utils/           # Funções utilitárias
-│   └── main.py          # Ponto de entrada da aplicação
-├── docker-compose.dev.yml  # Configuração Docker para desenvolvimento
-├── docker-compose.yml      # Configuração Docker para produção
-├── Dockerfile              # Definição da imagem Docker
-├── requirements.txt        # Dependências do projeto
-└── README.md               # Este arquivo
+│   ├── models/            # Modelos de dados Pydantic
+│   ├── routers/           # Rotas da API
+│   ├── scrapping/         # Módulos para extração de dados
+│   └── utils/             # Funções utilitárias
+├── docker-compose.dev.yml # Configuração Docker para desenvolvimento
+├── docker-compose.yml     # Configuração Docker para produção
+├── Dockerfile             # Definição da imagem Docker
+├── main.bat               # Script para execução local em Windows
+├── main.py                # Ponto de entrada da aplicação
+├── start-dev.bat          # Script para iniciar ambiente de desenvolvimento
+├── start-prod.bat         # Script para iniciar ambiente de produção
+├── requirements.txt       # Dependências do projeto
+└── README.md              # Este arquivo
 ```
 
 ## Fonte dos Dados

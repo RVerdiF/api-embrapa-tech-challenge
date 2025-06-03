@@ -25,7 +25,7 @@ app.include_router(importacao.router)
 async def root():
     return {
         "api_name": "API Embrapa",
-        "description": "API para extração de informações referentes à vitivinicultura no RS.",
+        "description": "API para extração de informações referentes à vitivinicultura",
         "version": "0.1.0",
         "endpoints": [
             "/v1/producao",
